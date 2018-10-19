@@ -1,0 +1,39 @@
+<idea-plugin>
+    <id>com.damon4u.plugin.mybatis</id>
+    <name>Hello Mybatis</name>
+    <version>1.0</version>
+    <vendor email="support@yourcompany.com" url="http://www.yourcompany.com">damon4u</vendor>
+
+    <description><![CDATA[
+      An idea plugin for mybatis.<br>
+    ]]></description>
+
+    <change-notes><![CDATA[
+      1.0<br>
+      mapper文件解析.
+    ]]>
+    </change-notes>
+
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
+    <idea-version since-build="145"/>
+
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+         on how to target different products -->
+    <!-- uncomment to enable plugin in all products
+    <depends>com.intellij.modules.lang</depends>
+    -->
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Add your extensions here -->
+        <!-- projectService -->
+        <projectService serviceImplementation="com.damon4u.plugin.mybatis.service.JavaService"/>
+        
+        <!-- 解析xml文件，方便使用DOM读写 -->
+        <dom.fileDescription implementation="com.damon4u.plugin.mybatis.dom.description.MapperDescription"/>
+    </extensions>
+
+    <actions>
+        <!-- Add your actions here -->
+    </actions>
+
+</idea-plugin>

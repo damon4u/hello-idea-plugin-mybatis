@@ -35,31 +35,52 @@ public interface Mapper extends DomElement {
     @NotNull
     @Attribute("namespace")
     GenericAttributeValue<String> getNamespace();
-    
+
+    /**
+     * 解析并返回resultMap标签列表
+     */
     @NotNull
     @SubTagList("resultMap")
     List<ResultMap> getResultMaps();
-    
+
+    /**
+     * 解析并返回parameterMap标签列表
+     */
     @NotNull
     @SubTagList("parameterMap")
     List<ParameterMap> getParameterMaps();
-    
+
+    /**
+     * 解析并返回sql标签列表
+     */
     @NotNull
     @SubTagList("sql")
     List<Sql> getSqls();
-    
+
+    /**
+     * 解析并返回insert标签列表
+     */
     @NotNull
     @SubTagList("insert")
     List<Insert> getInserts();
-    
+
+    /**
+     * 解析并返回update标签列表
+     */
     @NotNull
     @SubTagList("update")
     List<Update> getUpdates();
-    
+
+    /**
+     * 解析并返回delete标签列表
+     */
     @NotNull
     @SubTagList("delete")
     List<Delete> getDeletes();
-    
+
+    /**
+     * 解析并返回select标签列表
+     */
     @NotNull
     @SubTagList("select")
     List<Select> getSelects();

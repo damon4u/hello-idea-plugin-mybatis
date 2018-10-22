@@ -1,7 +1,6 @@
 package com.damon4u.plugin.mybatis.dom.model;
 
 import com.intellij.psi.PsiClass;
-import com.intellij.psi.xml.XmlTag;
 import com.intellij.util.xml.Attribute;
 import com.intellij.util.xml.GenericAttributeValue;
 import org.jetbrains.annotations.NotNull;
@@ -16,11 +15,6 @@ import org.jetbrains.annotations.NotNull;
 public interface ParameteredDynamicQueryableDomElement extends DynamicQueryableDomElement, IdDomElement {
     
     // TODO: id
-    
-    @NotNull
-    @Attribute("parameterMap")
-    // TODO: converter
-    GenericAttributeValue<ParameterMap> getParameterMap();
     
     @NotNull
     @Attribute("parameterType")

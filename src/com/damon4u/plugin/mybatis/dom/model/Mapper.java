@@ -44,13 +44,6 @@ public interface Mapper extends DomElement {
     List<ResultMap> getResultMaps();
 
     /**
-     * 解析并返回parameterMap标签列表
-     */
-    @NotNull
-    @SubTagList("parameterMap")
-    List<ParameterMap> getParameterMaps();
-
-    /**
      * 解析并返回sql标签列表
      */
     @NotNull

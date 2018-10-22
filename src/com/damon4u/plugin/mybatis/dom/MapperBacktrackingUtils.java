@@ -2,7 +2,6 @@ package com.damon4u.plugin.mybatis.dom;
 
 import com.damon4u.plugin.mybatis.dom.model.Association;
 import com.damon4u.plugin.mybatis.dom.model.Collection;
-import com.damon4u.plugin.mybatis.dom.model.ParameterMap;
 import com.damon4u.plugin.mybatis.dom.model.ResultMap;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.util.PsiTreeUtil;
@@ -46,11 +45,6 @@ public class MapperBacktrackingUtils {
         Association association = DomUtil.getParentOfType(domElement, Association.class, true);
         if (null != association && isNotWithinSameTag(association, attributeValue)) {
             return Optional.ofNullable(association.getJavaType().getValue());
-        }
-        // parameterMap标签下的property，那么类型为type指定
-        ParameterMap parameterMap = DomUtil.getParentOfType(domElement, ParameterMap.class, true);
-        if (null != parameterMap && isNotWithinSameTag(parameterMap, attributeValue)) {
-            return Optional.ofNullable(parameterMap.getType().getValue());
         }
         // resultMap标签下的property，那么类型为type指定
         ResultMap resultMap = DomUtil.getParentOfType(domElement, ResultMap.class, true);

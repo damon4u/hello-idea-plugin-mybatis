@@ -23,11 +23,11 @@ import java.util.Optional;
  */
 public class ContextPsiFieldReference extends PsiReferenceBase<XmlAttributeValue> {
 
-    protected ContextReferenceSetResolver resolver;
+    private PsiFiledReferenceSetResolver resolver;
 
-    protected int index;
+    private int index;
 
-    public ContextPsiFieldReference(XmlAttributeValue element, TextRange range, int index) {
+    ContextPsiFieldReference(XmlAttributeValue element, TextRange range, int index) {
         super(element, range, false);
         this.index = index;
         resolver = new PsiFiledReferenceSetResolver(element);
@@ -37,7 +37,7 @@ public class ContextPsiFieldReference extends PsiReferenceBase<XmlAttributeValue
     @Nullable
     @Override
     public PsiElement resolve() {
-        Optional<PsiElement> resolved = resolver.resolve(index);
+        Optional<PsiElement> resolved = (Optional<PsiElement>) resolver.resolve(index);
         return resolved.orElse(null);
     }
 
@@ -70,7 +70,7 @@ public class ContextPsiFieldReference extends PsiReferenceBase<XmlAttributeValue
             // 包含点号，说明此参数的类型为引用类型
             // 例如一个类的成员变量中包含其他引用类型
             int ind = 0 == index ? 0 : index - 1;
-            Optional<PsiElement> resolved = resolver.resolve(ind);
+            Optional<PsiElement> resolved = (Optional<PsiElement>) resolver.resolve(ind);
             if (resolved.isPresent()) {
                 return JavaService.getInstance(myElement.getProject()).getReferenceClazzOfPsiField(resolved.get());
             }
@@ -80,19 +80,4 @@ public class ContextPsiFieldReference extends PsiReferenceBase<XmlAttributeValue
         return Optional.empty();
     }
 
-    public ContextReferenceSetResolver getResolver() {
-        return resolver;
-    }
-
-    public void setResolver(ContextReferenceSetResolver resolver) {
-        this.resolver = resolver;
-    }
-
-    public int getIndex() {
-        return index;
-    }
-
-    public void setIndex(int index) {
-        this.index = index;
-    }
 }

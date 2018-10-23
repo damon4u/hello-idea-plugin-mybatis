@@ -1,7 +1,7 @@
 package com.damon4u.plugin.mybatis.reference;
 
-import com.damon4u.plugin.mybatis.dom.MapperBacktrackingUtils;
 import com.damon4u.plugin.mybatis.util.JavaUtils;
+import com.damon4u.plugin.mybatis.util.MapperUtils;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Iterables;
 import com.intellij.psi.PsiClass;
@@ -28,24 +28,31 @@ import java.util.Optional;
  */
 class PsiFiledReferenceSetResolver {
 
+    /**
+     * 嵌套引用分隔符
+     */
     private static final Splitter SPLITTER = Splitter.on(String.valueOf(ReferenceSetBase.DOT_SEPARATOR));
 
+    /**
+     * 当前属性元素
+     */
     private XmlAttributeValue element;
 
     /**
      * 属性全名可能包含引用，例如user.name，那么按照点号分割，保存所有字段名称
      */
-    private List<String> texts;
+    private List<String> fieldNameWithReferenceList;
 
     PsiFiledReferenceSetResolver(@NotNull XmlAttributeValue element) {
         this.element = element;
         // 属性全名，可能包含引用，如user.name
         String wholeFiledName = element.getValue() != null ? element.getValue() : "";
-        this.texts = Lists.newArrayList(SPLITTER.split(wholeFiledName));
+        this.fieldNameWithReferenceList = Lists.newArrayList(SPLITTER.split(wholeFiledName));
     }
 
     /**
      * 将xml属性解析到实体类字段
+     *
      * @param index 按照点号分割后，属性位于哪一级，index为索引值
      *              例如user.name，那么idea会为user和name分别创建引用，都可以鼠标点击跳转
      *              user的index为0，name的index为1
@@ -55,8 +62,10 @@ class PsiFiledReferenceSetResolver {
         // 先获取一级属性
         // 对于简单属性"name"，那么就是这个属性
         // 对于包含引用的情况"user.name"，那么先找到一级属性user
-        Optional<PsiField> startElement = getStartElement(Iterables.getFirst(texts, null));
-        return startElement.isPresent() ? (texts.size() > 1 ? parseNext(startElement, texts, index) : startElement) : Optional.empty();
+        Optional<PsiField> firstLevelElement = getFirstLevelElement(Iterables.getFirst(fieldNameWithReferenceList, null));
+        return firstLevelElement.isPresent() ?
+                (fieldNameWithReferenceList.size() > 1 ? parseNextLevelElement(firstLevelElement, index) : firstLevelElement)
+                : Optional.empty();
     }
 
     /**
@@ -64,27 +73,30 @@ class PsiFiledReferenceSetResolver {
      * 对于简单属性"name"，那么就是这个属性
      * 对于包含引用的情况"user.name"，那么先找到一级属性user
      *
-     * @param firstText
+     * @param firstLevelFieldName 第一层级的属性名，可能是一个引用，也可能是基本类型
      * @return
      */
     @NotNull
-    private Optional<PsiField> getStartElement(@Nullable String firstText) {
-        Optional<PsiClass> clazz = MapperBacktrackingUtils.getPropertyClazz(element);
-        return clazz.flatMap(psiClass -> JavaUtils.findSettablePsiField(psiClass, firstText));
+    private Optional<PsiField> getFirstLevelElement(@Nullable String firstLevelFieldName) {
+        Optional<PsiClass> clazz = MapperUtils.getPropertyClazz(element);
+        return clazz.flatMap(psiClass -> JavaUtils.findSettablePsiField(psiClass, firstLevelFieldName));
     }
 
     /**
      * 按照点号逐层解析，前面层级为引用，去引用中解析下一层字段
+     *
+     * @param maxLevelIndex 最大解析层级深度，比如"user.name"，那么如果是要为user建立引用，maxLevelIndex为1；
+     *                      如果要为name建立引用，那么maxLevelIndex为2
      */
-    private Optional<PsiField> parseNext(Optional<PsiField> current, List<String> texts, int index) {
-        int ind = 1;
-        while (current.isPresent() && ind <= index) {
-            String text = texts.get(ind);
-            if (text.contains(" ")) {
+    private Optional<PsiField> parseNextLevelElement(Optional<PsiField> current, int maxLevelIndex) {
+        int index = 1;
+        while (current.isPresent() && index <= maxLevelIndex) {
+            String nextLevelIndexFiledName = fieldNameWithReferenceList.get(index);
+            if (nextLevelIndexFiledName.contains(" ")) {
                 return Optional.empty();
             }
-            current = resolveReferenceField(current.get(), text);
-            ind++;
+            current = resolveReferenceField(current.get(), nextLevelIndexFiledName);
+            index++;
         }
         return current;
     }

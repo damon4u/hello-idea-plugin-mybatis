@@ -1,4 +1,4 @@
-package com.damon4u.plugin.mybatis.dom;
+package com.damon4u.plugin.mybatis.util;
 
 import com.damon4u.plugin.mybatis.dom.model.Association;
 import com.damon4u.plugin.mybatis.dom.model.Collection;
@@ -18,16 +18,17 @@ import java.util.Optional;
  * Description:
  *
  * @author damon4u
- * @version 2018-10-19 12:51
+ * @version 2018-10-23 15:56
  */
-public class MapperBacktrackingUtils {
-    
-    private MapperBacktrackingUtils() {
+public final class MapperUtils {
+
+    private MapperUtils() {
         throw new UnsupportedOperationException();
     }
 
     /**
      * 获取property从属的类型
+     *
      * @param attributeValue property属性
      * @return
      */

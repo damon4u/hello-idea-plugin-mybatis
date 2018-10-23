@@ -1,8 +1,8 @@
 package com.damon4u.plugin.mybatis.reference;
 
-import com.damon4u.plugin.mybatis.dom.MapperBacktrackingUtils;
 import com.damon4u.plugin.mybatis.service.JavaService;
 import com.damon4u.plugin.mybatis.util.JavaUtils;
+import com.damon4u.plugin.mybatis.util.MapperUtils;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiElement;
@@ -25,14 +25,28 @@ public class ContextPsiFieldReference extends PsiReferenceBase<XmlAttributeValue
 
     private PsiFiledReferenceSetResolver resolver;
 
+    /**
+     * 当前解析层级
+     * 例如property为"user.name"
+     * 那么如果鼠标点击的user，index为1
+     * 如果鼠标点击的是name，index为2
+     */
     private int index;
 
+    /**
+     * @param element 当前元素
+     * @param range   元素边界
+     * @param index   引用层级
+     */
     ContextPsiFieldReference(XmlAttributeValue element, TextRange range, int index) {
         super(element, range, false);
         this.index = index;
         resolver = new PsiFiledReferenceSetResolver(element);
     }
 
+    /**
+     * 解析xml属性，返回对应的引用变量
+     */
     @SuppressWarnings("unchecked")
     @Nullable
     @Override
@@ -75,7 +89,7 @@ public class ContextPsiFieldReference extends PsiReferenceBase<XmlAttributeValue
                 return JavaService.getInstance(myElement.getProject()).getReferenceClazzOfPsiField(resolved.get());
             }
         } else { // 没有点号，说明参数类型不是引用类型，直接就是外层标签定义的类型（如resultMap中type指定的类型）中包含的简单类型，如基本类型或者字符串类型变量
-            return MapperBacktrackingUtils.getPropertyClazz(myElement);
+            return MapperUtils.getPropertyClazz(myElement);
         }
         return Optional.empty();
     }

@@ -38,14 +38,20 @@ public final class JavaUtils {
         return Optional.ofNullable(field);
     }
 
+    /**
+     * 获取类中所有成员变量
+     *
+     * @param clazz 类
+     * @return
+     */
     @NotNull
     public static PsiField[] findSettablePsiFields(final @NotNull PsiClass clazz) {
         final PsiField[] allFields = clazz.getAllFields();
         final List<PsiField> settableFields = new ArrayList<>(allFields.length);
         for (final PsiField field : allFields) {
             final PsiModifierList modifierList = field.getModifierList();
-            if (modifierList != null && 
-                    (modifierList.hasModifierProperty(PsiModifier.STATIC) 
+            if (modifierList != null &&
+                    (modifierList.hasModifierProperty(PsiModifier.STATIC)
                             || modifierList.hasModifierProperty(PsiModifier.FINAL))) {
                 continue;
             }

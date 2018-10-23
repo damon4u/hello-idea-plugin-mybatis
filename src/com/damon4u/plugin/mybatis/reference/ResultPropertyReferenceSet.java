@@ -19,6 +19,7 @@ public class ResultPropertyReferenceSet extends ReferenceSetBase<PsiReference> {
         super(text, element, offset, ReferenceSetBase.DOT_SEPARATOR);
     }
 
+    @Override
     protected PsiReference createReference(TextRange range, int index) {
         XmlAttributeValue element = (XmlAttributeValue) getElement();
         return null == element ? null : new ContextPsiFieldReference(element, range, index);

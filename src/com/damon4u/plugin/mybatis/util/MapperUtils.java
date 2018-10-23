@@ -2,15 +2,21 @@ package com.damon4u.plugin.mybatis.util;
 
 import com.damon4u.plugin.mybatis.dom.model.Association;
 import com.damon4u.plugin.mybatis.dom.model.Collection;
+import com.damon4u.plugin.mybatis.dom.model.IdDomElement;
+import com.damon4u.plugin.mybatis.dom.model.Mapper;
 import com.damon4u.plugin.mybatis.dom.model.ResultMap;
 import com.intellij.psi.PsiClass;
+import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiFile;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.psi.xml.XmlAttributeValue;
 import com.intellij.psi.xml.XmlElement;
 import com.intellij.psi.xml.XmlTag;
 import com.intellij.util.xml.DomElement;
 import com.intellij.util.xml.DomUtil;
+import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
@@ -59,5 +65,53 @@ public final class MapperUtils {
     private static boolean isNotWithinSameTag(@NotNull DomElement domElement, @NotNull XmlElement xmlElement) {
         XmlTag xmlTag = PsiTreeUtil.getParentOfType(xmlElement, XmlTag.class);
         return !domElement.getXmlTag().equals(xmlTag);
+    }
+
+    @NotNull
+    public static Optional<IdDomElement> findParentIdDomElement(@Nullable PsiElement element) {
+        DomElement domElement = DomUtil.getDomElement(element);
+        if (null == domElement) {
+            return Optional.empty();
+        }
+        if (domElement instanceof IdDomElement) {
+            return Optional.of((IdDomElement) domElement);
+        }
+        return Optional.ofNullable(DomUtil.getParentOfType(domElement, IdDomElement.class, true));
+    }
+
+    public static boolean isElementWithinMybatisFile(@NotNull PsiElement element) {
+        PsiFile psiFile = element.getContainingFile();
+        return element instanceof XmlElement && DomUtils.isMybatisFile(psiFile);
+    }
+    
+    @NotNull
+    @NonNls
+    public static String getNamespace(@NotNull DomElement element) {
+        return getNamespace(getMapper(element));
+    }
+    
+    @NotNull
+    @NonNls
+    public static String getNamespace(@NotNull Mapper mapper) {
+        String ns = mapper.getNamespace().getStringValue();
+        return null == ns ? "" : ns;
+    }
+
+    @SuppressWarnings("unchecked")
+    @NotNull
+    @NonNls
+    public static Mapper getMapper(@NotNull DomElement element) {
+        Optional<Mapper> optional = Optional.ofNullable(DomUtil.getParentOfType(element, Mapper.class, true));
+        if (optional.isPresent()) {
+            return optional.get();
+        } else {
+            throw new IllegalArgumentException("Unknown element");
+        }
+    }
+
+    @Nullable
+    @NonNls
+    public static <T extends IdDomElement> String getId(@NotNull T domElement) {
+        return domElement.getId().getRawText();
     }
 }

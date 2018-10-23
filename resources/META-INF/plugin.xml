@@ -30,6 +30,9 @@
         
         <!-- 解析xml文件，方便使用DOM读写 -->
         <dom.fileDescription implementation="com.damon4u.plugin.mybatis.dom.description.MapperDescription"/>
+
+        <!-- 为dao方法参数添加引用 -->
+        <psi.referenceContributor implementation="com.damon4u.plugin.mybatis.reference.ParamReferenceContributor"/>
     </extensions>
 
     <actions>

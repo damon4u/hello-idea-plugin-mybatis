@@ -41,8 +41,9 @@ public class SqlParamReferenceContributor extends PsiReferenceContributor {
                             ArrayList<PsiReference> referenceList = Lists.newArrayList();
                             while (matcher.find()) {
                                 String param = matcher.group(1);
-                                int start = text.indexOf(param);
-                                referenceList.add(new SqlParamReference(token, new TextRange(start, start + param.length()), param));
+                                int start = matcher.start(1);
+                                int end = matcher.end(1);
+                                referenceList.add(new SqlParamReference(token, new TextRange(start, end), param));
                             }
                             return referenceList.toArray(new PsiReference[0]);
                         }

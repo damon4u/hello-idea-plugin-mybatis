@@ -27,7 +27,7 @@ import java.util.regex.Pattern;
  */
 public class TestParamReferenceContributor extends PsiReferenceContributor {
 
-    private static final Pattern PARAM_PATTERN = Pattern.compile("(?!and)");
+    private static final Pattern PARAM_PATTERN = Pattern.compile("(\\w+)");
 
     @Override
     public void registerReferenceProviders(@NotNull PsiReferenceRegistrar registrar) {
@@ -45,27 +45,17 @@ public class TestParamReferenceContributor extends PsiReferenceContributor {
                                 String value = xmlAttributeValue.getValue();
                                 if (StringUtils.isNotBlank(value)) {
                                     ArrayList<PsiReference> referenceList = Lists.newArrayList();
-                                    String[] splits = value.split("\\s+");
-                                    int fromIndex = 0; // 防止出现重复字符
-                                    for (String param : splits) {
-                                        if (param.equalsIgnoreCase("and")) {
-                                            fromIndex += "and".length();
+                                    Matcher matcher = PARAM_PATTERN.matcher(value);
+                                    while (matcher.find()) {
+                                        String param = matcher.group(1);
+                                        if (param.equalsIgnoreCase("and")
+                                                || param.equalsIgnoreCase("or")
+                                                || param.equalsIgnoreCase("null")) {
                                             continue;
                                         }
-                                        if (param.equalsIgnoreCase("or")) {
-                                            fromIndex += "or".length();
-                                            continue;
-                                        }
-                                        if (param.equalsIgnoreCase("null")) {
-                                            fromIndex += "null".length();
-                                            continue;
-                                        }
-                                        if (!param.contains("!=") && !param.contains("==")) {
-                                            int start = value.indexOf(param, fromIndex) + 1;
-                                            int end = start + param.length();
-                                            referenceList.add(new TestParamReference(xmlAttributeValue, new TextRange(start, end), param));
-                                            fromIndex = end;
-                                        }
+                                        int start = matcher.start(1);
+                                        int end = matcher.end(1);
+                                        referenceList.add(new TestParamReference(xmlAttributeValue, new TextRange(start, end), param));
                                     }
                                     return referenceList.toArray(new PsiReference[0]);
                                 }
@@ -78,10 +68,13 @@ public class TestParamReferenceContributor extends PsiReferenceContributor {
     }
 
     public static void main(String[] args) {
+        Pattern pattern = Pattern.compile("(\\w+)");
         String str = "userName != null and a == null";
-        Matcher matcher = PARAM_PATTERN.matcher(str);
+        Matcher matcher = pattern.matcher(str);
         while (matcher.find()) {
-            System.out.println(matcher.group());
+            System.out.println(matcher.group(1));
+            System.out.println(matcher.start(1));
+            System.out.println(matcher.end(1));
         }
     }
 

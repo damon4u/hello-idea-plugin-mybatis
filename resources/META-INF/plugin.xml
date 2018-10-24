@@ -27,12 +27,22 @@
         <!-- Add your extensions here -->
         <!-- projectService -->
         <projectService serviceImplementation="com.damon4u.plugin.mybatis.service.JavaService"/>
-        
+
         <!-- 解析xml文件，方便使用DOM读写 -->
         <dom.fileDescription implementation="com.damon4u.plugin.mybatis.dom.description.MapperDescription"/>
 
-        <!-- 为dao方法参数添加引用 -->
-        <psi.referenceContributor implementation="com.damon4u.plugin.mybatis.reference.ParamReferenceContributor"/>
+        <!-- mapper文件中，为dao方法参数（多个参数时@Param注解标记）添加引用 -->
+        <psi.referenceContributor implementation="com.damon4u.plugin.mybatis.reference.SqlParamReferenceContributor"/>
+        <psi.referenceContributor implementation="com.damon4u.plugin.mybatis.reference.TestParamReferenceContributor"/>
+
+        <!-- mapper文件中，写test条件查询时提示方法参数 -->
+        <completion.contributor language="XML"
+                                implementationClass="com.damon4u.plugin.mybatis.completion.TestParamCompletionContributor"/>
+
+        <!-- mapper文件中，写sql语句时#{}提示方法参数 -->
+        <completion.contributor language="SQL"
+                                implementationClass="com.damon4u.plugin.mybatis.completion.SqlParamCompletionContributor"
+                                order="first"/>
     </extensions>
 
     <actions>

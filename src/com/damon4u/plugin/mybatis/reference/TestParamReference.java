@@ -10,6 +10,8 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiMethod;
 import com.intellij.psi.PsiParameter;
 import com.intellij.psi.PsiReferenceBase;
+import com.intellij.psi.xml.XmlAttribute;
+import com.intellij.psi.xml.XmlAttributeValue;
 import com.intellij.psi.xml.XmlToken;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -22,19 +24,19 @@ import java.util.Optional;
  * @author damon4u
  * @version 2018-10-23 21:05
  */
-public class ParamReference extends PsiReferenceBase<XmlToken> {
+public class TestParamReference extends PsiReferenceBase<XmlAttributeValue> {
     
     private String paramName;
 
-    public ParamReference(@NotNull XmlToken xmlToken, TextRange textRange) {
-        super(xmlToken, textRange);
-        this.paramName = xmlToken.getText().substring(textRange.getStartOffset(), textRange.getEndOffset());
+    public TestParamReference(@NotNull XmlAttributeValue attributeValue, TextRange textRange, @NotNull String paramName) {
+        super(attributeValue, textRange);
+        this.paramName = paramName;
     }
     
     @Nullable
     @Override
     public PsiElement resolve() {
-        XmlToken element = getElement();
+        XmlAttributeValue element = getElement();
         Project project = element.getProject();
         IdDomElement domElement = MapperUtils.findParentIdDomElement(element).orElse(null);
         if (domElement == null) {

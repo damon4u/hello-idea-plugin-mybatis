@@ -1,11 +1,9 @@
 package com.damon4u.plugin.mybatis.reference;
 
-import com.damon4u.plugin.mybatis.util.DomUtils;
 import com.damon4u.plugin.mybatis.util.MapperUtils;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.patterns.PlatformPatterns;
 import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiReference;
 import com.intellij.psi.PsiReferenceContributor;
 import com.intellij.psi.PsiReferenceProvider;
@@ -25,7 +23,7 @@ import java.util.regex.Pattern;
  * @author damon4u
  * @version 2018-10-23 18:10
  */
-public class ParamReferenceContributor extends PsiReferenceContributor {
+public class SqlParamReferenceContributor extends PsiReferenceContributor {
     
     private static final Pattern PARAM_PATTERN = Pattern.compile("#\\{(.*?)}");
 
@@ -44,7 +42,7 @@ public class ParamReferenceContributor extends PsiReferenceContributor {
                             while (matcher.find()) {
                                 String param = matcher.group(1);
                                 int start = text.indexOf(param);
-                                referenceList.add(new ParamReference(token, new TextRange(start, start + param.length())));
+                                referenceList.add(new SqlParamReference(token, new TextRange(start, start + param.length()), param));
                             }
                             return referenceList.toArray(new PsiReference[0]);
                         }

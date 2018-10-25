@@ -53,8 +53,9 @@ public class TestParamReferenceContributor extends PsiReferenceContributor {
                                                 || param.equalsIgnoreCase("null")) {
                                             continue;
                                         }
-                                        int start = matcher.start(1);
-                                        int end = matcher.end(1);
+                                        // 这里加1是因为attribute value用双引号包着
+                                        int start = matcher.start(1) + 1;
+                                        int end = matcher.end(1) + 1;
                                         referenceList.add(new TestParamReference(xmlAttributeValue, new TextRange(start, end), param));
                                     }
                                     return referenceList.toArray(new PsiReference[0]);

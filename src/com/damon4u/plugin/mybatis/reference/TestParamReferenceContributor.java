@@ -27,7 +27,7 @@ import java.util.regex.Pattern;
  */
 public class TestParamReferenceContributor extends PsiReferenceContributor {
 
-    private static final Pattern PARAM_PATTERN = Pattern.compile("(\\w+)");
+    private static final Pattern PARAM_PATTERN = Pattern.compile("([A-Za-z]+)");
 
     @Override
     public void registerReferenceProviders(@NotNull PsiReferenceRegistrar registrar) {
@@ -56,7 +56,7 @@ public class TestParamReferenceContributor extends PsiReferenceContributor {
                                         // 这里加1是因为attribute value用双引号包着
                                         int start = matcher.start(1) + 1;
                                         int end = matcher.end(1) + 1;
-                                        referenceList.add(new TestParamReference(xmlAttributeValue, new TextRange(start, end), param));
+                                        referenceList.add(new ParamReference(xmlAttributeValue, new TextRange(start, end), param));
                                     }
                                     return referenceList.toArray(new PsiReference[0]);
                                 }
@@ -66,17 +66,6 @@ public class TestParamReferenceContributor extends PsiReferenceContributor {
                         return PsiReference.EMPTY_ARRAY;
                     }
                 });
-    }
-
-    public static void main(String[] args) {
-        Pattern pattern = Pattern.compile("(\\w+)");
-        String str = "userName != null and a == null";
-        Matcher matcher = pattern.matcher(str);
-        while (matcher.find()) {
-            System.out.println(matcher.group(1));
-            System.out.println(matcher.start(1));
-            System.out.println(matcher.end(1));
-        }
     }
 
 }

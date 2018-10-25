@@ -3,7 +3,6 @@ package com.damon4u.plugin.mybatis.completion;
 import com.damon4u.plugin.mybatis.dom.model.IdDomElement;
 import com.damon4u.plugin.mybatis.util.DomUtils;
 import com.damon4u.plugin.mybatis.util.MapperUtils;
-import com.intellij.codeInsight.completion.CompletionContributor;
 import com.intellij.codeInsight.completion.CompletionParameters;
 import com.intellij.codeInsight.completion.CompletionResultSet;
 import com.intellij.codeInsight.completion.CompletionType;
@@ -20,7 +19,7 @@ import java.util.Optional;
  * @author damon4u
  * @version 2018-10-24 20:24
  */
-public class SqlParamCompletionContributor extends CompletionContributor {
+public class SqlParamCompletionContributor extends BaseParamCompletionContributor {
 
 
     @Override
@@ -53,7 +52,7 @@ public class SqlParamCompletionContributor extends CompletionContributor {
         int offset = InjectedLanguageManager.getInstance(position.getProject()).injectedToHost(position, position.getTextOffset());
         Optional<IdDomElement> idDomElement = MapperUtils.findParentIdDomElement(xmlFile.findElementAt(offset));
         if (idDomElement.isPresent()) {
-            TestParamCompletionContributor.addCompletionForPsiParameter(position.getProject(), result, idDomElement.get());
+            addCompletionForPsiParameter(position.getProject(), result, idDomElement.get());
             result.stopHere();
         }
     }

@@ -43,7 +43,7 @@ public class SqlParamReferenceContributor extends PsiReferenceContributor {
                                 String param = matcher.group(1);
                                 int start = matcher.start(1);
                                 int end = matcher.end(1);
-                                referenceList.add(new SqlParamReference(token, new TextRange(start, end), param));
+                                referenceList.add(new ParamReference(token, new TextRange(start, end), param));
                             }
                             return referenceList.toArray(new PsiReference[0]);
                         }

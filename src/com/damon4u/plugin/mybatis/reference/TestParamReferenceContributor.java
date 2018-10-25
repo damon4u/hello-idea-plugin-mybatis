@@ -40,6 +40,7 @@ public class TestParamReferenceContributor extends PsiReferenceContributor {
                     public PsiReference[] getReferencesByElement(@NotNull PsiElement element, @NotNull ProcessingContext context) {
                         XmlAttributeValue xmlAttributeValue = (XmlAttributeValue) element;
                         if (MapperUtils.isElementWithinMybatisFile(xmlAttributeValue)) {
+                            // XmlAttributeValue其实是XmlAttribute的子标签，获取父类即可拿到XmlAttribute
                             PsiElement xmlAttribute = xmlAttributeValue.getParent();
                             if (xmlAttribute instanceof XmlAttribute && ((XmlAttribute) xmlAttribute).getName().equals("test")) {
                                 String value = xmlAttributeValue.getValue();

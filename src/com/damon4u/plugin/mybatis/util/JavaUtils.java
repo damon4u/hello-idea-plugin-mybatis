@@ -15,6 +15,7 @@ import com.intellij.psi.PsiModifierList;
 import com.intellij.psi.PsiModifierListOwner;
 import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.psi.util.PropertyUtil;
+import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.xml.DomElement;
 import com.intellij.util.xml.DomUtil;
 import org.apache.commons.lang.ArrayUtils;
@@ -127,5 +128,13 @@ public final class JavaUtils {
     public static Optional<PsiAnnotation> getPsiAnnotation(@NotNull PsiModifierListOwner target, @NotNull Annotation annotation) {
         PsiModifierList modifierList = target.getModifierList();
         return null == modifierList ? Optional.empty() : Optional.ofNullable(modifierList.findAnnotation(annotation.getQualifiedName()));
+    }
+
+    public static boolean isElementWithinInterface(@Nullable PsiElement element) {
+        if (element instanceof PsiClass && ((PsiClass) element).isInterface()) {
+            return true;
+        }
+        PsiClass type = PsiTreeUtil.getParentOfType(element, PsiClass.class);
+        return Optional.ofNullable(type).isPresent() && type.isInterface();
     }
 }

@@ -5,6 +5,7 @@ import com.damon4u.plugin.mybatis.dom.model.Collection;
 import com.damon4u.plugin.mybatis.dom.model.IdDomElement;
 import com.damon4u.plugin.mybatis.dom.model.Mapper;
 import com.damon4u.plugin.mybatis.dom.model.ResultMap;
+import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
@@ -113,5 +114,17 @@ public final class MapperUtils {
     @NonNls
     public static <T extends IdDomElement> String getId(@NotNull T domElement) {
         return domElement.getId().getRawText();
+    }
+
+    @NotNull
+    @NonNls
+    public static <T extends IdDomElement> String getIdSignature(@NotNull T domElement) {
+        return getNamespace(domElement) + "." + getId(domElement);
+    }
+
+    @NotNull
+    @NonNls
+    public static java.util.Collection<Mapper> findMappers(@NotNull Project project) {
+        return DomUtils.findDomElements(project, Mapper.class);
     }
 }

@@ -31,8 +31,10 @@
         <!-- 解析xml文件，方便使用DOM读写 -->
         <dom.fileDescription implementation="com.damon4u.plugin.mybatis.dom.description.MapperDescription"/>
 
-        <!-- mapper文件中，为dao方法参数（多个参数时@Param注解标记）添加引用 -->
+        <!-- mapper文件中sql语句，为dao方法参数（多个参数时@Param注解标记）添加引用 -->
         <psi.referenceContributor implementation="com.damon4u.plugin.mybatis.reference.SqlParamReferenceContributor"/>
+
+        <!-- mapper文件中if条件，为dao方法参数（多个参数时@Param注解标记）添加引用 -->
         <psi.referenceContributor implementation="com.damon4u.plugin.mybatis.reference.TestParamReferenceContributor"/>
 
         <!-- mapper文件中，写test条件查询时提示方法参数 -->
@@ -43,6 +45,16 @@
         <completion.contributor language="SQL"
                                 implementationClass="com.damon4u.plugin.mybatis.completion.SqlParamCompletionContributor"
                                 order="first"/>
+
+        <!-- 在java类或者方法行添加跳转到mapper的icon -->
+        <codeInsight.lineMarkerProvider language="JAVA"
+                                        implementationClass="com.damon4u.plugin.mybatis.linemarker.DaoToXmlLineMarkerProvider"/>
+
+        <!-- 在mapper文件中添加跳转到java类的icon -->
+        <codeInsight.lineMarkerProvider language="XML"
+                                        implementationClass="com.damon4u.plugin.mybatis.linemarker.XmlToDaoLineMarkerProvider"/>
+
+
     </extensions>
 
     <actions>

@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
  * @author damon4u
  * @version 2018-10-18 17:38
  */
-public interface Select extends ParameteredDynamicQueryableDomElement, ResultMapAttributeDomElement {
+public interface Select extends DMLAndDQLDynamicQueryableDomElement, ResultMapAttributeDomElement {
     
     @NotNull
     @Attribute("resultType")

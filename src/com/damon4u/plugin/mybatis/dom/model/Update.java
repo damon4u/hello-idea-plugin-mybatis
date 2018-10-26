@@ -7,6 +7,6 @@ package com.damon4u.plugin.mybatis.dom.model;
  * @author damon4u
  * @version 2018-10-18 17:40
  */
-public interface Update extends ParameteredDynamicQueryableDomElement {
+public interface Update extends DMLAndDQLDynamicQueryableDomElement {
     
 }

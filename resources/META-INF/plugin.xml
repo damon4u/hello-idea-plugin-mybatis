@@ -54,6 +54,12 @@
         <codeInsight.lineMarkerProvider language="XML"
                                         implementationClass="com.damon4u.plugin.mybatis.linemarker.XmlToDaoLineMarkerProvider"/>
 
+        <!-- 检查mapper文件中的语句有没有对应的dao层方法 -->
+        <localInspection language="XML" shortName="MybatisMapperXmlInspection" enabledByDefault="true" level="ERROR"
+                         displayName="Mapper xml inspection"
+                         groupName="Mybatis"
+                         implementationClass="com.damon4u.plugin.mybatis.inspection.MapperXmlInspection"/>
+
 
     </extensions>
 

@@ -23,7 +23,7 @@ import java.util.Collections;
  * @author damon4u
  * @version 2018-10-19 15:56
  */
-public class PropertyConverter extends ResolvingConverter<XmlAttributeValue> implements CustomReferenceConverter<XmlAttributeValue> {
+public class PropertyConverter extends ConverterAdaptor<XmlAttributeValue> implements CustomReferenceConverter<XmlAttributeValue> {
 
     /**
      * converter实现CustomReferenceConverter，这样能通过实现createReferences创建引用关系
@@ -42,12 +42,6 @@ public class PropertyConverter extends ResolvingConverter<XmlAttributeValue> imp
         return new ResultPropertyReferenceSet(stringValue, element, ElementManipulators.getOffsetInElement(element)).getPsiReferences();
     }
 
-    @NotNull
-    @Override
-    public Collection<? extends XmlAttributeValue> getVariants(ConvertContext context) {
-        return Collections.emptyList();
-    }
-
     @Nullable
     @Override
     public XmlAttributeValue fromString(@Nullable String s, ConvertContext context) {
@@ -55,10 +49,4 @@ public class PropertyConverter extends ResolvingConverter<XmlAttributeValue> imp
         return ctxElement instanceof GenericAttributeValue ? ((GenericAttributeValue) ctxElement).getXmlAttributeValue() : null;
     }
 
-    @Nullable
-    @Override
-    public String toString(@Nullable XmlAttributeValue attributeValue, ConvertContext context) {
-        return null;
-    }
-    
 }

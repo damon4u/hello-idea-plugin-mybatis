@@ -3,7 +3,7 @@ package com.damon4u.plugin.mybatis.linemarker;
 import com.damon4u.plugin.mybatis.dom.model.Delete;
 import com.damon4u.plugin.mybatis.dom.model.IdDomElement;
 import com.damon4u.plugin.mybatis.dom.model.Insert;
-import com.damon4u.plugin.mybatis.dom.model.ParameteredDynamicQueryableDomElement;
+import com.damon4u.plugin.mybatis.dom.model.DMLAndDQLDynamicQueryableDomElement;
 import com.damon4u.plugin.mybatis.dom.model.Select;
 import com.damon4u.plugin.mybatis.dom.model.Update;
 import com.damon4u.plugin.mybatis.util.Icons;
@@ -38,7 +38,7 @@ import java.util.Optional;
  */
 public class XmlToDaoLineMarkerProvider implements LineMarkerProvider {
 
-    private static final ImmutableList<Class<? extends ParameteredDynamicQueryableDomElement>> TARGET_TYPES = ImmutableList.of(
+    private static final ImmutableList<Class<? extends DMLAndDQLDynamicQueryableDomElement>> TARGET_TYPES = ImmutableList.of(
             Select.class,
             Update.class,
             Insert.class,

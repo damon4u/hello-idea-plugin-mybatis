@@ -11,7 +11,7 @@ import java.util.List;
  * @author damon4u
  * @version 2018-10-18 17:32
  */
-public interface Insert extends ParameteredDynamicQueryableDomElement {
+public interface Insert extends DMLAndDQLDynamicQueryableDomElement {
     
     @SubTagList("selectKey")
     List<SelectKey> getSelectKey();

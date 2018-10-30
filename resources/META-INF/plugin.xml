@@ -1,6 +1,6 @@
 <idea-plugin>
     <id>com.damon4u.plugin.mybatis</id>
-    <name>NANA-Mybatis</name>
+    <name>Nana-Mybatis</name>
     <version>1.0.0</version>
     <vendor email="damon_secret@163.com" url="https://github.com/damon4u/hello-idea-plugin-mybatis">damon4u</vendor>
 
@@ -12,11 +12,12 @@
     <change-notes><![CDATA[
       <ul>
       <li><b>1.0.0:</b>
-        <br> Mybatis XML解析，根据id选招对应resultMap，sql语句，实现点击跳转。
+        <br> Mybatis XML解析，根据id寻找对应resultMap，sql语句，实现点击跳转。
+        <br> resultMap中property解析到bean中的属性，可以点击跳转和拼写错误提示。
         <br> mapper文件中sql语句，为dao方法参数（多个参数时@Param注解标记）添加引用。
         <br> mapper文件中if条件，为dao方法参数（多个参数时@Param注解标记）添加引用。
-        <br> mapper文件中，写test条件查询时提示方法参数。
         <br> mapper文件中，写sql语句时#{}提示方法参数。
+        <br> mapper文件中，写if条件查询时提示方法参数。
         <br> 在Java类或者方法行添加跳转到mapper的icon。
         <br> 在mapper文件中添加跳转到Java类的icon。
         <br> 检查mapper文件中的语句有没有对应的dao层方法。

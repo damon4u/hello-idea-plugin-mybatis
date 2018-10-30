@@ -26,6 +26,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * Description:
@@ -122,6 +123,15 @@ public final class JavaUtils {
     public static boolean isAnnotationPresent(@NotNull PsiModifierListOwner target, @NotNull Annotation annotation) {
         PsiModifierList modifierList = target.getModifierList();
         return null != modifierList && null != modifierList.findAnnotation(annotation.getQualifiedName());
+    }
+
+    public static boolean isAnyAnnotationPresent(@NotNull PsiModifierListOwner target, @NotNull Set<Annotation> annotations) {
+        for (Annotation annotation : annotations) {
+            if (isAnnotationPresent(target, annotation)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @NotNull

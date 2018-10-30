@@ -28,8 +28,8 @@ out/
 Thumbs.db
 
 # package ignore (optional)
-# *.jar
-# *.war
+*.jar
+*.war
 # *.zip
 # *.tar
 # *.tar.gz

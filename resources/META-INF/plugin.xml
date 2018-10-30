@@ -1,16 +1,28 @@
 <idea-plugin>
     <id>com.damon4u.plugin.mybatis</id>
-    <name>Hello Mybatis</name>
-    <version>1.0</version>
-    <vendor email="support@yourcompany.com" url="http://www.yourcompany.com">damon4u</vendor>
+    <name>NANA-Mybatis</name>
+    <version>1.0.0</version>
+    <vendor email="damon_secret@163.com" url="https://github.com/damon4u/hello-idea-plugin-mybatis">damon4u</vendor>
 
     <description><![CDATA[
       An idea plugin for mybatis.<br>
+      This Plugin is fork from https://github.com/wuzhizhan/free-idea-mybatis
     ]]></description>
 
     <change-notes><![CDATA[
-      1.0<br>
-      mapper文件解析.
+      <ul>
+      <li><b>1.0.0:</b>
+        <br> Mybatis XML解析，根据id选招对应resultMap，sql语句，实现点击跳转。
+        <br> mapper文件中sql语句，为dao方法参数（多个参数时@Param注解标记）添加引用。
+        <br> mapper文件中if条件，为dao方法参数（多个参数时@Param注解标记）添加引用。
+        <br> mapper文件中，写test条件查询时提示方法参数。
+        <br> mapper文件中，写sql语句时#{}提示方法参数。
+        <br> 在Java类或者方法行添加跳转到mapper的icon。
+        <br> 在mapper文件中添加跳转到Java类的icon。
+        <br> 检查mapper文件中的语句有没有对应的dao层方法。
+        <br> 检查dao层方法有没有对应的mapper语句。
+      </li>
+      </ul>
     ]]>
     </change-notes>
 
@@ -59,6 +71,12 @@
                          displayName="Mapper xml inspection"
                          groupName="Mybatis"
                          implementationClass="com.damon4u.plugin.mybatis.inspection.MapperXmlInspection"/>
+
+        <!-- 检查dao层方法有没有对应的mapper语句 -->
+        <localInspection language="JAVA" shortName="MybatisMapperMethodInspection"
+                         displayName="Mapper method inspection"
+                         groupName="Mybatis" enabledByDefault="true" level="ERROR"
+                         implementationClass="com.damon4u.plugin.mybatis.inspection.MapperMethodInspection"/>
 
 
     </extensions>

@@ -4,6 +4,7 @@ import com.damon4u.plugin.mybatis.util.JavaUtils;
 import com.damon4u.plugin.mybatis.util.MapperUtils;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiField;
@@ -11,7 +12,6 @@ import com.intellij.psi.PsiType;
 import com.intellij.psi.impl.source.PsiClassReferenceType;
 import com.intellij.psi.util.ReferenceSetBase;
 import com.intellij.psi.xml.XmlAttributeValue;
-import org.fest.util.Lists;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

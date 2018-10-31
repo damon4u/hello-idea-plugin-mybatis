@@ -1,6 +1,7 @@
 package com.damon4u.plugin.mybatis.reference;
 
 import com.damon4u.plugin.mybatis.util.MapperUtils;
+import com.google.common.collect.Lists;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.patterns.PlatformPatterns;
 import com.intellij.psi.PsiElement;
@@ -10,7 +11,6 @@ import com.intellij.psi.PsiReferenceProvider;
 import com.intellij.psi.PsiReferenceRegistrar;
 import com.intellij.psi.xml.XmlToken;
 import com.intellij.util.ProcessingContext;
-import org.fest.util.Lists;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;

@@ -4,6 +4,7 @@ import com.damon4u.plugin.mybatis.dom.model.IdDomElement;
 import com.damon4u.plugin.mybatis.dom.model.Mapper;
 import com.damon4u.plugin.mybatis.util.JavaUtils;
 import com.damon4u.plugin.mybatis.util.MapperUtils;
+import com.google.common.collect.Sets;
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.JavaPsiFacade;
@@ -20,7 +21,6 @@ import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.util.CommonProcessors;
 import com.intellij.util.Processor;
 import com.intellij.util.xml.DomElement;
-import org.fest.util.Sets;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

@@ -12,6 +12,21 @@
     <change-notes><![CDATA[
       <ul>
       <li><b>1.0.0:</b>
+        <br> Create reference for &lt;resultMap&gt; and &lt;sql&gt; statements in Mybatis XML.
+        <br> Create reference for property in &lt;resultMap&gt; statements to corresponding entity.
+        <br> Create reference for SQL XmlToken and &lt;if test=""&gt; attribute to the corresponding parameter of the method in DAO interface.
+        <br> Auto complete sql statement when you type `#{}` in Mybatis XML with parameters of the corresponding method in DAO interface.
+        <br> Auto complete &lt;if test=""&gt; statement in Mybatis XML with parameters of the corresponding method in DAO interface.
+        <br> Create line marker with beautiful icon for DAO method navigating to corresponding statement in Mybatis XML.
+        <br> Create line marker with beautiful icon for statement in Mybatis XML navigating to corresponding method in DAO interface.
+        <br> Create inspection for Mybatis XML statement which checks whether a corresponding method exists.
+        <br> Create inspection for DAO interface method which checks whether a corresponding Mybatis XML statement exists.
+      </li>
+      </ul>
+      <br>
+      <br>
+      <ul>
+      <li><b>1.0.0:</b>
         <br> Mybatis XML解析，根据id寻找对应resultMap，sql语句，实现点击跳转。
         <br> resultMap中property解析到bean中的属性，可以点击跳转和拼写错误提示。
         <br> mapper文件中sql语句，为dao方法参数（多个参数时@Param注解标记）添加引用。

@@ -140,11 +140,26 @@ public final class JavaUtils {
         return null == modifierList ? Optional.empty() : Optional.ofNullable(modifierList.findAnnotation(annotation.getQualifiedName()));
     }
 
+    /**
+     * 判断Psi元素是否是在接口中
+     * 有两种情况，可能本身就是接口，返回true
+     * 可能本身是个方法，在接口中，也返回true
+     * @param element
+     * @return
+     */
     public static boolean isElementWithinInterface(@Nullable PsiElement element) {
         if (element instanceof PsiClass && ((PsiClass) element).isInterface()) {
             return true;
         }
         PsiClass type = PsiTreeUtil.getParentOfType(element, PsiClass.class);
         return Optional.ofNullable(type).isPresent() && type.isInterface();
+    }
+
+    /**
+     * 判断clazz是否是实体类
+     * @param clazz 类
+     */
+    public static boolean isModelClazz(@Nullable PsiClass clazz) {
+        return null != clazz && !clazz.isAnnotationType() && !clazz.isInterface() && !clazz.isEnum() && clazz.isValid();
     }
 }

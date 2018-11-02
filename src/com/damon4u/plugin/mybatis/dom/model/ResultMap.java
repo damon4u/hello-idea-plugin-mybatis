@@ -1,8 +1,10 @@
 package com.damon4u.plugin.mybatis.dom.model;
 
+import com.damon4u.plugin.mybatis.dom.converter.AliasConverter;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.xml.XmlAttributeValue;
 import com.intellij.util.xml.Attribute;
+import com.intellij.util.xml.Convert;
 import com.intellij.util.xml.GenericAttributeValue;
 import org.jetbrains.annotations.NotNull;
 
@@ -22,6 +24,6 @@ public interface ResultMap extends ResultMapBaseDomElement, IdDomElement {
     
     @NotNull
     @Attribute("type")
-    // TODO: converter
+    @Convert(AliasConverter.class)
     GenericAttributeValue<PsiClass> getType();
 }

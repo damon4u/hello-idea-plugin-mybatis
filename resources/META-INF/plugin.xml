@@ -45,16 +45,15 @@
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
     <idea-version since-build="145"/>
 
-    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
-         on how to target different products -->
-    <!-- uncomment to enable plugin in all products
-    <depends>com.intellij.modules.lang</depends>
-    -->
+    <depends optional="true">com.intellij.database</depends>
+    <!-- 依赖spring，如AliasService中使用spring的mybatis配置 -->
+    <depends optional="true">com.intellij.spring</depends>
 
     <extensions defaultExtensionNs="com.intellij">
         <!-- Add your extensions here -->
         <!-- projectService -->
         <projectService serviceImplementation="com.damon4u.plugin.mybatis.service.JavaService"/>
+        <projectService serviceImplementation="com.damon4u.plugin.mybatis.alias.AliasService"/>
 
         <!-- 解析xml文件，方便使用DOM读写 -->
         <dom.fileDescription implementation="com.damon4u.plugin.mybatis.dom.description.MapperDescription"/>

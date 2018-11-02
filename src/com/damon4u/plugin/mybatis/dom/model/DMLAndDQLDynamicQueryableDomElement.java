@@ -1,5 +1,6 @@
 package com.damon4u.plugin.mybatis.dom.model;
 
+import com.damon4u.plugin.mybatis.dom.converter.AliasConverter;
 import com.damon4u.plugin.mybatis.dom.converter.DaoMethodConverter;
 import com.intellij.psi.PsiClass;
 import com.intellij.util.xml.Attribute;
@@ -25,6 +26,6 @@ public interface DMLAndDQLDynamicQueryableDomElement extends DynamicQueryableDom
     
     @NotNull
     @Attribute("parameterType")
-    // TODO: converter
+    @Convert(AliasConverter.class)
     GenericAttributeValue<PsiClass> getParameterType();
 }

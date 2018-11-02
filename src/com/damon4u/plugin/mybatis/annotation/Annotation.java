@@ -1,6 +1,5 @@
 package com.damon4u.plugin.mybatis.annotation;
 
-import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Maps;
@@ -11,6 +10,7 @@ import com.intellij.psi.search.GlobalSearchScope;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -94,7 +94,7 @@ public class Annotation implements Cloneable {
 
     private String setupAttributeText() {
         Optional<String> singleValue = getSingleValue();
-        return singleValue.isPresent() ? singleValue.get() : getComplexValue();
+        return singleValue.orElseGet(this::getComplexValue);
     }
 
     private String getComplexValue() {
@@ -113,7 +113,7 @@ public class Annotation implements Cloneable {
 
     @NotNull
     public Optional<PsiClass> toPsiClass(@NotNull Project project) {
-        return Optional.fromNullable(JavaPsiFacade.getInstance(project).findClass(getQualifiedName(), GlobalSearchScope.allScope(project)));
+        return Optional.ofNullable(JavaPsiFacade.getInstance(project).findClass(getQualifiedName(), GlobalSearchScope.allScope(project)));
     }
 
     private Optional<String> getSingleValue() {
@@ -124,7 +124,7 @@ public class Annotation implements Cloneable {
             builder.append(")");
             return Optional.of(builder.toString());
         } catch (Exception e) {
-            return Optional.absent();
+            return Optional.empty();
         }
     }
 

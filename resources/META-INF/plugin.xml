@@ -1,43 +1,49 @@
 <idea-plugin>
     <id>com.damon4u.plugin.mybatis</id>
     <name>Nana-Mybatis</name>
-    <version>1.0.1</version>
-    <vendor email="damon_secret@163.com" url="https://github.com/damon4u/hello-idea-plugin-mybatis">damon4u</vendor>
+    <version>1.0.2</version>
+    <vendor email="damon_secret@163.com" url="https://github.com/damon4u/hello-idea-plugin-mybatis">maybe</vendor>
 
     <description><![CDATA[
-      An idea plugin for mybatis.<br>
-      This Plugin is fork from https://github.com/wuzhizhan/free-idea-mybatis
+      A simple plugin for Mybatis.<br>
+      This Plugin is fork from https://github.com/wuzhizhan/free-idea-mybatis <br>
+      <b>Features:</b> <br>
+      <ul>
+      <li>create reference for &lt;resultMap&gt; and &lt;sql&gt; statements in Mybatis XML.</li>
+      <li>create reference for property in &lt;resultMap&gt; statements to corresponding entity.</li>
+      <li>create reference for SQL XmlToken and &lt;if test=""&gt; attribute to the corresponding parameter of the method in DAO interface.</li>
+      <li>support sql statement completion when you type `#{}` in Mybatis XML with parameters of the corresponding method in DAO interface.</li>
+      <li>support &lt;if test=""&gt; statement completion in Mybatis XML with parameters of the corresponding method in DAO interface.</li>
+      <li>support line marker with beautiful icon for DAO method navigating to corresponding statement in Mybatis XML.</li>
+      <li>support line marker with beautiful icon for statement in Mybatis XML navigating to corresponding method in DAO interface.</li>
+      <li>support inspection for Mybatis XML statement which checks whether a corresponding method exists.</li>
+      <li>support inspection for DAO interface method which checks whether a corresponding Mybatis XML statement exists.</li>
+      </ul>
     ]]></description>
 
     <change-notes><![CDATA[
       <ul>
-      <li><b>1.0.1:</b>
-        <br> Create reference for &lt;resultMap&gt; and &lt;sql&gt; statements in Mybatis XML.
-        <br> Create reference for property in &lt;resultMap&gt; statements to corresponding entity.
-        <br> Create reference for SQL XmlToken and &lt;if test=""&gt; attribute to the corresponding parameter of the method in DAO interface.
-        <br> Auto complete sql statement when you type `#{}` in Mybatis XML with parameters of the corresponding method in DAO interface.
-        <br> Auto complete &lt;if test=""&gt; statement in Mybatis XML with parameters of the corresponding method in DAO interface.
-        <br> Create line marker with beautiful icon for DAO method navigating to corresponding statement in Mybatis XML.
-        <br> Create line marker with beautiful icon for statement in Mybatis XML navigating to corresponding method in DAO interface.
-        <br> Create inspection for Mybatis XML statement which checks whether a corresponding method exists.
-        <br> Create inspection for DAO interface method which checks whether a corresponding Mybatis XML statement exists.
+      
+      <li><b>1.0.2:</b>
+        <br> support alias converter for parameterType and resultType.
       </li>
-      </ul>
-      <br>
-      <br>
-      <ul>
+      
       <li><b>1.0.1:</b>
-        <br> Mybatis XML解析，根据id寻找对应resultMap，sql语句，实现点击跳转。
-        <br> resultMap中property解析到bean中的属性，可以点击跳转和拼写错误提示。
-        <br> mapper文件中sql语句，为dao方法参数（多个参数时@Param注解标记）添加引用。
-        <br> mapper文件中if条件，为dao方法参数（多个参数时@Param注解标记）添加引用。
-        <br> mapper文件中，写sql语句时#{}提示方法参数。
-        <br> mapper文件中，写if条件查询时提示方法参数。
-        <br> 在Java类或者方法行添加跳转到mapper的icon。
-        <br> 在mapper文件中添加跳转到Java类的icon。
-        <br> 检查mapper文件中的语句有没有对应的dao层方法。
-        <br> 检查dao层方法有没有对应的mapper语句。
+        <br> create reference for SQL XmlToken and &lt;if test=""&gt; attribute to the corresponding parameter of the method in DAO interface;
+        <br> support sql statement completion when you type `#{}` in Mybatis XML with parameters of the corresponding method in DAO interface;
+        <br> support &lt;if test=""&gt; statement completion in Mybatis XML with parameters of the corresponding method in DAO interface;
+        <br> support line marker with beautiful icon for DAO method navigating to corresponding statement in Mybatis XML;
+        <br> support line marker with beautiful icon for statement in Mybatis XML navigating to corresponding method in DAO interface;
+        <br> support inspection for Mybatis XML statement which checks whether a corresponding method exists;
+        <br> support inspection for DAO interface method which checks whether a corresponding Mybatis XML statement exists.
       </li>
+      
+      <li><b>1.0.0:</b>
+        <br> created;
+        <br> create reference for &lt;resultMap&gt; and &lt;sql&gt; statements in Mybatis XML;
+        <br> create reference for property in &lt;resultMap&gt; statements to corresponding entity.
+      </li>
+      
       </ul>
     ]]>
     </change-notes>
